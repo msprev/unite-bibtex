@@ -63,35 +63,33 @@ def populate_list():
             desc += ' (%s)' % e['year']
         # add the title
         if 'title' in e:
-            if 'type' in e and e['type'] == 'book':
-                desc += " '" + decrap(e['title']) + "'"
-            else:
-                desc += " '" + decrap(e['title']) + "'"
-        if 'type' in e:
-            if e['type'] == 'article':
-                if 'journal' in e:
-                    desc += ", " + decrap(e['journal'])
-                    if 'volume' in e:
-                        desc += ', ' + e['volume']
-                    if 'pages' in e:
-                        desc += ', pp. ' + e['pages']
-            elif e['type'] == 'incollection' or e['type'] == 'inproceedings':
-                    if 'editor' in e or 'booktitle' in e:
-                        desc += ' in'
-                    if 'editor' in e:
-                        desc += " %s (Ed.)" % add_names(e['editor'], 4)
-                    if 'booktitle' in e:
-                        desc += " '" + decrap(e['booktitle']) + "'"
-            elif e['type'] == 'book':
-                if 'publisher' in e:
-                    desc += ", " + decrap(e['publisher'])
-            elif e['type'] == 'mastersthesis' or e['type'] == 'phdthesis':
-                if 'school' in e:
-                    desc += ", " + decrap(e['school'])
-            elif e['type'] == 'unpublished':
-                desc += ', unpublished manuscript'
-            desc += " [" + e['type'] + "]"
+            desc += " '" + decrap(e['title']) + "'"
+        # now, the per-type stuff...
+        if e['type'] == 'article':
+            if 'journal' in e:
+                desc += ", " + decrap(e['journal'])
+                if 'volume' in e:
+                    desc += ', ' + e['volume']
+                if 'pages' in e:
+                    desc += ', pp. ' + e['pages']
+        elif e['type'] == 'incollection' or e['type'] == 'inproceedings':
+            if 'editor' in e or 'booktitle' in e:
+                desc += ' in'
+            if 'editor' in e:
+                desc += " %s (Ed.)" % add_names(e['editor'], 4)
+            if 'booktitle' in e:
+                desc += " '" + decrap(e['booktitle']) + "'"
+        elif e['type'] == 'book':
+            if 'publisher' in e:
+                desc += ", " + decrap(e['publisher'])
+        elif e['type'] == 'mastersthesis' or e['type'] == 'phdthesis':
+            if 'school' in e:
+                desc += ", " + decrap(e['school'])
+        elif e['type'] == 'unpublished':
+            desc += ', unpublished manuscript'
+        desc += " [" + e['type'] + "]"
         if 'id' in e:
             k = e['id']
-        desc = desc.replace("'", "''").replace("\\", "")
+        desc = desc.replace("'", "''").replace("\\", "").replace("--", "-")
         vim.command("call add(l:candidates,['%s','%s'])" % (k, desc))
+
