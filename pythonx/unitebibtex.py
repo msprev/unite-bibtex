@@ -43,7 +43,8 @@ def decrap(incoming):
     return out
 
 def populate_list():
-    with open('/Users/msprevak/Dropbox/msprevak/Library/texmf/bibtex/bib/mds-bib/refs.bib') as bibtex_file:
+    entries = list()
+    with open(vim.eval('g:unite_bibtex_bib_file')) as bibtex_file:
         parser = BibTexParser()
         parser.customization = customizations
         bib_database = bibtexparser.load(bibtex_file, parser=parser)
