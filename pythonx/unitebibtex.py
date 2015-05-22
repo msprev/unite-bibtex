@@ -81,8 +81,10 @@ def populate_list():
             if 'booktitle' in e:
                 desc += " '" + decrap(e['booktitle']) + "'"
         elif e['type'] == 'book':
+            if 'address' in e:
+                desc += ", " + decrap(e['address'])
             if 'publisher' in e:
-                desc += ", " + decrap(e['publisher'])
+                desc += ": " + decrap(e['publisher'])
         elif e['type'] == 'mastersthesis' or e['type'] == 'phdthesis':
             if 'school' in e:
                 desc += ", " + decrap(e['school'])
