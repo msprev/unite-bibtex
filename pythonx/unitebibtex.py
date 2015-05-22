@@ -1,3 +1,4 @@
+import os
 import vim
 import bibtexparser
 from operator import itemgetter
@@ -92,4 +93,8 @@ def populate_list():
             k = e['id']
         desc = desc.replace("'", "''").replace("\\", "").replace("--", "-")
         vim.command("call add(l:candidates,['%s','%s'])" % (k, desc))
+
+def update_current_timestamp():
+    time_stamp = os.path.getmtime(vim.eval('g:unite_bibtex_bib_file'))
+    vim.command('let l:current_timestamp = %s' % time_stamp)
 

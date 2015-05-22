@@ -27,20 +27,22 @@ function! s:source.action_table.insert.func(candidates)
 endfunction
 
 function! s:source.gather_candidates(args, context)
-    if !exists('g:unite_bibtex_gathered')
+    let l:current_timestamp = 0
+    python import unitebibtex; unitebibtex.update_current_timestamp()
+    if !exists('g:unite_bibtex_cache_timestamp') || l:current_timestamp !=# g:unite_bibtex_cache_timestamp
         let l:candidates = []
         python import unitebibtex; unitebibtex.populate_list()
-        let g:unite_bibtex_gathered = map(l:candidates,'{
+        let g:unite_bibtex_cache_gathered = map(l:candidates,'{
                     \   "word": v:val[1],
                     \   "action__text": "@" . v:val[0],
                     \ }')
+        let g:unite_bibtex_cache_timestamp = l:current_timestamp
     endif
-    return g:unite_bibtex_gathered
+    return g:unite_bibtex_cache_gathered
 endfunction
 
 function! s:source.hooks.on_syntax(args, context)
   syntax match uniteSource__Bibtex_Type /\[.\{-}\]$/ contained containedin=uniteSource__Bibtex
   highlight default link uniteSource__Bibtex_Type PreProc
 endfunction
-
 
