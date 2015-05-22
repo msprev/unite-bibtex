@@ -7,7 +7,7 @@ let s:source = {
 \   "name" : "bibtex",
 \   "syntax" : "uniteSource__Bibtex",
 \   'hooks' : {},
-\   "description" : "minimal unite-source",
+\   "description" : "candidates from bibtex file",
 \   "action_table" : {
 \       "insert" : {
 \           "is_selectable" : 1,
