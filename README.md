@@ -4,7 +4,9 @@ a BibTeX source for unite.vim
 
 The keys of the selected candidates are inserted at the cursor.
 
-Citations are inserted in pandoc's citation format (e.g. `@SomeKey93`). It is possible to change to a different citation format (e.g. `\cite{SomeKey93}`) (just tweak `bibtex.vim`).
+Citations are inserted in pandoc's citation format (e.g. `@SomeKey93; @AnotherKey94`).
+
+It is possible to change to a different citation format (e.g. `\cite{SomeKey93}`) (just tweak `bibtex.vim`).
 
 # Requirements
 
