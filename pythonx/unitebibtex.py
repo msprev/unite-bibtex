@@ -90,9 +90,9 @@ def populate_list():
                 desc += ", " + decrap(e['school'])
         elif e['type'] == 'unpublished':
             desc += ', unpublished manuscript'
-        desc += " [" + e['type'] + "]"
         if 'id' in e:
             desc += ' ' + "@" + e['id']
+        desc += " [" + e['type'] + "]"
         if 'id' in e:
             k = e['id']
         desc = desc.replace("'", "''").replace("\\", "").replace("--", "-")
