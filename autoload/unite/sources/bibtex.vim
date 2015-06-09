@@ -43,8 +43,8 @@ endfunction
 
 function! s:source.hooks.on_syntax(args, context)
   syntax match uniteSource__Bibtex_Type /\[.\{-}\] \ze@/ contained containedin=uniteSource__Bibtex
-  highlight default link uniteSource__Bibtex_Type PreProc
+  highlight default link uniteSource__Bibtex_Type Constant
   syntax match uniteSource__Bibtex_Id /@\S\+$/ contained containedin=uniteSource__Bibtex
-  highlight default link uniteSource__Bibtex_Id Statement
+  highlight default link uniteSource__Bibtex_Id PreProc
 endfunction
 
