@@ -92,6 +92,8 @@ def populate_list():
             desc += ', unpublished manuscript'
         desc += " [" + e['type'] + "]"
         if 'id' in e:
+            desc += ' ' + "@" + e['id']
+        if 'id' in e:
             k = e['id']
         desc = desc.replace("'", "''").replace("\\", "").replace("--", "-")
         vim.command("call add(l:candidates,['%s','%s'])" % (k, desc))

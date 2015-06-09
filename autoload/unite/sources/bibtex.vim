@@ -42,7 +42,9 @@ function! s:source.gather_candidates(args, context)
 endfunction
 
 function! s:source.hooks.on_syntax(args, context)
-  syntax match uniteSource__Bibtex_Type /\[.\{-}\]$/ contained containedin=uniteSource__Bibtex
+  syntax match uniteSource__Bibtex_Type /\[.\{-}\] \ze@/ contained containedin=uniteSource__Bibtex
   highlight default link uniteSource__Bibtex_Type PreProc
+  syntax match uniteSource__Bibtex_Id /@\S\+$/ contained containedin=uniteSource__Bibtex
+  highlight default link uniteSource__Bibtex_Id Statement
 endfunction
 
