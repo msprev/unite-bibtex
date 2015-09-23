@@ -1,5 +1,5 @@
 import vim
-import gather
+from core import gather
 
 def vim_bridge_gather_candidates():
     """
@@ -7,10 +7,14 @@ def vim_bridge_gather_candidates():
     Keep this small to help with debugging
     """
     # 1. Get values from vim
-    cache_dir = str(vim.eval('g:unite_bibtex_cache_dir'))
     bib_files = vim.eval('b:unite_bibtex_bib_files')
+    cache_dir = str(vim.eval('g:unite_bibtex_cache_dir'))
+    prefix = vim.eval('l:prefix')
+    postfix = vim.eval('l:postfix')
     # 2. Gather candidates
     gathered = gather.candidates(cache_dir, bib_files)
-    # 3. Send results back to vim
-    vim.command('let l:gathered = %s' % gathered)
-
+    # 3. Make commands to transmit candidates back to vim
+    vim_cmds = gather.make_vim_commands(gathered, 'l:gathered', prefix, postfix)
+    # 4. Send candidates back to vim
+    for cmd in vim_cmds:
+        vim.command(cmd)

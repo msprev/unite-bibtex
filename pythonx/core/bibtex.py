@@ -1,5 +1,6 @@
 import os
 import bibtexparser
+# import entry
 from bibtexparser.bparser import BibTexParser
 from bibtexparser.customization import *
 
@@ -64,8 +65,8 @@ def parse(filename):
             desc += ' ' + "@" + e['ID']
         desc += " [" + e['ENTRYTYPE'] + "]"
         if 'ID' in e:
-            k = e['ID']
-        desc = desc.replace("'", "''").replace("\\", "").replace("--", "-")
+            k = unicode(e['ID'])
+        desc = desc.replace("\\", "").replace("--", "-")
         unite_keyvals[k] = desc
     return unite_keyvals
 

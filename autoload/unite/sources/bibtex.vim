@@ -44,6 +44,18 @@ function! s:source.gather_candidates(args, context)
         echoerr 'No bibtex file set for current buffer, please set "b:unite_bibtex_bib_files"'
         return []
     endif
+    " set prefix to default if not otherwise set
+    if exists('g:unite_bibtex_prefix')
+        let l:prefix = g:unite_bibtex_prefix
+    else
+        let l:prefix = '@'
+    endif
+    " set postfix to default if not otherwise set
+    if exists('g:unite_bibtex_postfix')
+        let l:postfix = g:unite_bibtex_postfix
+    else
+        let l:postfix = ''
+    endif
     " gather the candidates
     let l:gathered = []
     python import unitebibtex; unitebibtex.vim_bridge_gather_candidates()
