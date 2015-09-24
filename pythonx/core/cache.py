@@ -1,16 +1,21 @@
 import base64
-import os
 import json
+import os
 import time
 
 SLEEP_TIME = 0.1
 
 class Cache(object):
-    """Docstring for cache. """
+    """
+    Cache data on disk.
+    Will cache data in some source file transformed by some arbitrary function.
+    Methods for reading, writing and updating cache.
+    """
 
     def __init__(self, source, cache_dir):
-        """ Setting for an initialised cache
-        :source: bibtex file to cache
+        """
+        Setting initialised cache
+        :source: source file data to cache
         :cache_dir: directory in which to place cache file
         """
         # sanity check 1: source file exists
@@ -31,12 +36,12 @@ class Cache(object):
         self.lock_path = os.path.join(cache_path, lock_name)
 
     def read(self):
-        """@todo: Docstring for read.
-
-        :filename: @todo
-        :returns: @todo
-
         """
+        Read data in cache file, and update self.data
+        Raises NoCache if cache file does not exist
+        Raises OutdatedCache if cache file modified date != that of source file
+        """
+
         if not os.path.isfile(self.cache_path):
             raise NoCache
         while self.islocked():
@@ -57,20 +62,17 @@ class Cache(object):
             raise OutdatedCache
 
     def update(self, update_fun):
-        """@todo: Docstring for update.
-        :returns: @todo
-
+        """
+        Freshen the cache
+        Read source data and store transform of it by arbitrary function
+        :update_fun: function to apply to source file data
         """
         self.data = update_fun(self.source_path)
         self.timestamp = os.path.getmtime(self.source_path)
 
-
     def write(self):
-        """@todo: Docstring for write.
-
-        :filename: @todo
-        :returns: @todo
-
+        """
+        Write data to cache file
         """
         # sanity check 1: don't write an unfilled cache
         if not self.timestamp:
@@ -89,31 +91,25 @@ class Cache(object):
             self.unlock()
 
     def lock(self):
-        """ lock cache file from read/writes of other processes
-        :returns: @todo
-
+        """
+        lock cache file from read/writes of other processes
         """
         if self.islocked():
             raise AttemptedLockingLocked
         open(self.lock_path, 'a').close()
 
     def unlock(self):
-        """ unlock cache file
-
-        :arg1: @todo
-        :returns: @todo
-
+        """
+        unlock cache file to read/writes of other processes
         """
         if not self.islocked():
             raise AttemptedUnlockingUnlocked
         os.remove(self.lock_path)
 
     def islocked(self):
-        """@todo: Docstring for islocked.
-
-        :arg1: @todo
-        :returns: @todo
-
+        """
+        test if cache file is lock
+        :returns: True if locked, otherwise False
         """
         if os.path.isfile(self.lock_path):
             return True
