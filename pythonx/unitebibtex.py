@@ -12,7 +12,7 @@ def vim_bridge_gather_candidates():
     prefix = vim.eval('l:prefix')
     postfix = vim.eval('l:postfix')
     # 2. Gather candidates
-    gathered = gather.candidates(cache_dir, bib_files)
+    gathered = gather.candidates(bib_files, cache_dir)
     # 3. Make commands to transmit candidates back to vim
     vim_cmds = gather.make_vim_commands(gathered, 'l:gathered', prefix, postfix)
     # 4. Send candidates back to vim

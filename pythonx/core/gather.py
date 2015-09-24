@@ -1,10 +1,10 @@
 import bibtex
 import cache
-import error
+import os
 
 ENCODING = 'utf-8'
 
-def candidates(cache_dir, bib_files):
+def candidates(bib_files, cache_dir):
     """ generate the data for Unite sourcee from the bib_files
     :cache_dir: directory where cache files kept
     :bib_files: list of bib files to read
@@ -19,14 +19,13 @@ def candidates(cache_dir, bib_files):
     #   { bibtex-key: text-in-unite-list }
     unite_keyvals = dict()
     for bib in bib_files:
-        unite_keyvals.update(bibtex.parse(bib))
-        # cache = cache.Cache(bib, cache_dir)
-        # try:
-        #     cache.read()
-        # except (error.NoCache, error.OutdatedCache):
-        #     cache.unite_keyvals = bibtex.parse(bib)
-        #     cache.write()
-        # unite_keyvals.update(cache.unite_keyvals)
+        c = cache.Cache(bib, cache_dir)
+        try:
+            c.read()
+        except (cache.NoCache, cache.OutdatedCache):
+            c.update(bibtex.parse)
+            c.write()
+        unite_keyvals.update(c.data)
     # 3. Create list based on bibtex key, case-insensitive
     gathered = [(bibtex_key, text) for bibtex_key, text in
                 sorted(unite_keyvals.viewitems(), key=lambda x: x[0].lower())]

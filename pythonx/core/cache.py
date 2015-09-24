@@ -37,8 +37,7 @@ class Cache(object):
         :returns: @todo
 
         """
-        # sanity check 1: cache hasn't been filled
-        if not self.timestamp:
+        if not os.path.isfile(self.cache_path):
             raise NoCache
         while self.islocked():
             time.sleep(SLEEP_TIME)
@@ -48,8 +47,8 @@ class Cache(object):
         try:
             with open(self.cache_path, 'r') as fp:
                 on_disk = json.load(fp)
-                self.timestamp = on_disk[0] 
-                self.data = on_disk[1] 
+                self.timestamp = on_disk[0]
+                self.data = on_disk[1]
         # alway sunlock!
         finally:
             self.unlock()
@@ -63,7 +62,7 @@ class Cache(object):
 
         """
         self.data = update_fun(self.source_path)
-        self.timestamp = os.path.getmtime(self.source_path) 
+        self.timestamp = os.path.getmtime(self.source_path)
 
 
     def write(self):
