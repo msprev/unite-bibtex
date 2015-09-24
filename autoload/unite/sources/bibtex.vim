@@ -45,14 +45,14 @@ function! s:source.gather_candidates(args, context)
         return []
     endif
     " set prefix to default if not otherwise set
-    if exists('g:unite_bibtex_prefix')
-        let l:prefix = g:unite_bibtex_prefix
+    if exists('b:unite_bibtex_prefix')
+        let l:prefix = b:unite_bibtex_prefix
     else
         let l:prefix = '@'
     endif
     " set postfix to default if not otherwise set
-    if exists('g:unite_bibtex_postfix')
-        let l:postfix = g:unite_bibtex_postfix
+    if exists('b:unite_bibtex_postfix')
+        let l:postfix = b:unite_bibtex_postfix
     else
         let l:postfix = ''
     endif
