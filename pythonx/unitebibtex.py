@@ -1,5 +1,11 @@
 import vim
 from core import gather
+""" unitebibtex: python code for Unite bibtex source
+
+Author    : Mark Sprevak <mark.sprevak@ed.ac.uk>
+Copyright : Copyright 2015, Mark Sprevak
+License   : BSD3
+"""
 
 def vim_bridge_gather_candidates():
     """
