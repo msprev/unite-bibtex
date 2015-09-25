@@ -1,90 +1,51 @@
 import os
 import bibtexparser
-# import format.apalike
+import formatter.apalike
 from bibtexparser.bparser import BibTexParser
 from bibtexparser.customization import *
 
 def parse(filename):
+    """
+    parse bibtex file and return dictionary of key values as result
+    uses a formatter to create Unite text for each entry
+    :returns: dicionary
+        - key of dictionary item is BibTeX entry type
+        - val of dictionary item is text for Unite to display for that entry
+        all text in the dictionary, including keys, is unicode
+    """
+    # 1. parse the file
     entries = list()
-    unite_keyvals = dict()
     with open(filename) as bibtex_file:
         parser = BibTexParser()
         parser.customization = customizations
         entries = bibtexparser.load(bibtex_file, parser=parser).entries
+    # 2. build the Unite text for each entry
+    unite_keyvals = dict()
     for e in entries:
-        desc = str()
-        # add the author or editor
-        if 'author' in e:
-            desc += add_names(e['author'], 5)
-        elif 'editor' in e:
-            desc += add_names(e['editor'], 5)
-            desc += ' (Ed.)'
-        # add the year
-        if 'year' in e:
-            desc += ' (%s)' % e['year']
-        # add the title
-        if 'title' in e:
-            desc += " '" + decrap(e['title']) + "'"
-        # now, the per-type stuff...
-        if e['ENTRYTYPE'] == 'article':
-            if 'journal' in e:
-                desc += ", " + decrap(e['journal'])
-                if 'volume' in e:
-                    desc += ', ' + e['volume']
-                if 'pages' in e:
-                    desc += ', pp. ' + e['pages']
-        elif e['ENTRYTYPE'] == 'incollection' or e['ENTRYTYPE'] == 'inproceedings':
-            if 'crossref' in e:
-                ps = [x for x in entries if x['ID'] == e['crossref']]
-                if ps:
-                    p = ps[0]
-                    if 'editor' in p or 'booktitle' in p:
-                        desc += ' in'
-                    if 'editor' in p:
-                        desc += " %s (Ed.)" % add_names(p['editor'], 4)
-                    if 'booktitle' in p:
-                        desc += " '" + decrap(p['booktitle']) + "'"
-            else:
-                if 'editor' in e or 'booktitle' in e:
-                    desc += ' in'
-                if 'editor' in e:
-                    desc += " %s (Ed.)" % add_names(e['editor'], 4)
-                if 'booktitle' in e:
-                    desc += " '" + decrap(e['booktitle']) + "'"
-        elif e['ENTRYTYPE'] == 'book':
-            if 'address' in e:
-                desc += ", " + decrap(e['address'])
-            if 'publisher' in e:
-                desc += ": " + decrap(e['publisher'])
-        elif e['ENTRYTYPE'] == 'mastersthesis' or e['ENTRYTYPE'] == 'phdthesis':
-            if 'school' in e:
-                desc += ", " + decrap(e['school'])
-        elif e['ENTRYTYPE'] == 'unpublished':
-            desc += ', unpublished manuscript'
-        if 'ID' in e:
-            desc += ' ' + "@" + e['ID']
-        desc += " [" + e['ENTRYTYPE'] + "]"
-        if 'ID' in e:
-            k = unicode(e['ID'])
-        desc = desc.replace("\\", "").replace("--", "-")
-        unite_keyvals[k] = desc
+        bibtex_key = unicode(e['ID'])
+        bibtex_type = e['ENTRYTYPE']
+        f = getattr(formatter.apalike, bibtex_type, formatter.apalike.default)
+        text = f(e)
+        unite_keyvals[bibtex_key] = text
     return unite_keyvals
 
 def customizations(record):
-    record = homogeneize_latex_encoding(record)
+    """
+    custom transformation applied during parsing
+    """
     record = convert_to_unicode(record)
+    # Split author field from separated by 'and' into a list of "Name, Surname".
     record = author(record)
+    # Split editor field from separated by 'and' into a list of "Name, Surname".
     record = editor_split(record)
     return record
 
 def editor_split(record):
     """
-    Split editor field into a list of "Name, Surname".
-
-    :param record: the record.
-    :type record: dict
-    :returns: dict -- the modified record.
-
+    custom transformation
+    - split editor field into a list of "Name, Surname"
+    :record: dict -- the record
+    :returns: dict -- the modified record
     """
     if "editor" in record:
         if record["editor"]:
@@ -93,18 +54,4 @@ def editor_split(record):
             del record["editor"]
     return record
 
-def add_names(names, max_num):
-    out = str()
-    for i in range(0, min(max_num, len(names))):
-        if i == 0:
-            out += decrap(names[i])
-        else:
-            out += ' and ' + decrap(names[i])
-    if len(names) > max_num:
-        out += ' et al.'
-    return out
-
-def decrap(incoming):
-    out = incoming.replace("~", " ").replace("\\emph{", "").replace("}", "").replace("{", "")
-    return out
 
