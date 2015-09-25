@@ -35,6 +35,17 @@ Parsing BibTeX databases is computationally intensive, so the source caches the 
 5.  Set variable `let g:unite_bibtex_cache_dir="/path/to/your/temp_dir"`
 6.  `:Unite bibtex` in vim
 
+# Variables
+
+The following variables can be set, shown with their default settings where applicable:
+
+- `g:unite_bibtex_bib_files`
+- `b:unite_bibtex_bib_files`
+- `g:unite_bibtex_cache_dir`
+- `b:unite_bibtex_prefix = '@'`
+- `b:unite_bibtex_postfix = ' '`
+- `b:unite_bibtex_separator = '; '`
+
 # Troubleshooting
 
 You can correct your .bib file with [pybtex](http://pypi.python.org/pypi/pybtex):
