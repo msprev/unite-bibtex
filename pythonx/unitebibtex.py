@@ -7,7 +7,10 @@ def vim_bridge_gather_candidates():
     Keep this small to help with debugging
     """
     # 1. Get values from vim
-    bib_files = vim.eval('b:unite_bibtex_bib_files')
+    if vim.eval("exists('b:unite_bibtex_bib_files')") == '1':
+        bib_files = vim.eval('b:unite_bibtex_bib_files')
+    else:
+        bib_files = vim.eval('g:unite_bibtex_bib_files')
     cache_dir = str(vim.eval('g:unite_bibtex_cache_dir'))
     prefix = vim.eval('l:prefix')
     postfix = vim.eval('l:postfix')

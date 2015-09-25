@@ -17,12 +17,18 @@ let s:source = {
 \}
 
 function! s:source.action_table.insert.func(candidates)
+    " set separator to default if not otherwise set
+    if exists('b:unite_bibtex_separator')
+        let l:separator = b:unite_bibtex_separator
+    else
+        let l:separator = '; '
+    endif
     let l:keys = []
     for candidate in a:candidates
         call add(l:keys, candidate.action__text)
     endfor
     call sort(l:keys)
-    let l:output = join(l:keys, '; ')
+    let l:output = join(l:keys, l:separator)
     execute "normal! a" . l:output . "\<esc>"
 endfunction
 
@@ -40,8 +46,8 @@ function! s:source.gather_candidates(args, context)
         return []
     endif
     " sanity check 2: bibtex file(s) have been set
-    if !exists('b:unite_bibtex_bib_files')
-        echoerr 'No bibtex file set for current buffer, please set "b:unite_bibtex_bib_files"'
+    if !exists('g:unite_bibtex_bib_files') && !exists('b:unite_bibtex_bib_files')
+        echoerr 'No bibtex file set, please set "g:unite_bibtex_bib_files" or "b:unite_bibtex_bib_files"'
         return []
     endif
     " set prefix to default if not otherwise set
