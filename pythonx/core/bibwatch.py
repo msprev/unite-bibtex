@@ -54,7 +54,11 @@ def main():
         # monitor for changes
         while True:
             for b in bib_files:
-                mtime_cur[b] = os.path.getmtime(b)
+                try:
+                    mtime_cur[b] = os.path.getmtime(b)
+                except OSError:
+                    time.sleep(SLEEP_TIME)
+                    continue
                 if mtime_cur[b] != mtime_last[b]:
                     update(c[b])
                     mtime_last[b] = mtime_cur[b]
