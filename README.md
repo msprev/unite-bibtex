@@ -52,12 +52,12 @@ The following variables can be set:
 This plugin includes a separate Python executable, `bibwatch`.
 
 bibwatch runs in the background in the terminal and watches for changes to selected BibTeX files.
-    Once it detect a change, it updates their corresponding Unite cache.
+    Once it detect a change, it updates their corresponding unite-bibtex cache.
     This means your unite-bibtex source in vim will be populated with zero or minimal lag, even for very large BibTeX databases.
 
-bibwatch is in `unite-bibtex/pythonx/core`.
+bibwatch is in `unite-bibtex/pythonx/core` inside the unite-bibtex plugin.
     Go to this directory in the terminal to run `./bibwatch.py`
-    Pass to this command paths to any BibTeX files you want watched.
+    Pass command paths to any BibTeX files you want watched.
     Pass your cache directory (as defined in `g:unite_bibtex_cache_dir`) as the value of `--cache`.
     For example:
 
