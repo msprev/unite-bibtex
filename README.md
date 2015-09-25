@@ -1,3 +1,5 @@
+![](http://d.pr/i/gV56+ "screenshot")
+
 # unite-bibtex
 
 A BibTeX source for unite.vim
