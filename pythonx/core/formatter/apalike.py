@@ -4,7 +4,7 @@ def default(e):
     # get the data
     author = util.author_or_editor(e, 5)
     year = e.get('year', 'no year')
-    title = e.get('title', '[no title]')
+    title = e.get('title', '=no title=')
     bibtex_key = unicode(e['ID'])
     bibtex_type = e['ENTRYTYPE']
     # build the string
@@ -26,8 +26,8 @@ def article(e):
     # get the data
     author = util.author_or_editor(e, 5)
     year = e.get('year', 'no year')
-    title = e.get('title', '[no title]')
-    journal = e.get('journal', '[no journal]')
+    title = e.get('title', '=no title=')
+    journal = e.get('journal', '=no journal=')
     volume = e.get('volume', None)
     pages = e.get('pages', None)
     bibtex_key = unicode(e['ID'])
@@ -59,7 +59,7 @@ def unpublished(e):
     # get the data
     author = util.author_or_editor(e, 5)
     year = e.get('year', 'no year')
-    title = e.get('title', '[no title]')
+    title = e.get('title', '=no title=')
     bibtex_key = unicode(e['ID'])
     bibtex_type = e['ENTRYTYPE']
     # build the string
@@ -83,8 +83,8 @@ def phdthesis(e):
     # get the data
     author = util.author_or_editor(e, 5)
     year = e.get('year', 'no year')
-    title = e.get('title', '[no title]')
-    school = e.get('school', '[no school]')
+    title = e.get('title', '=no title=')
+    school = e.get('school', '=no school=')
     bibtex_key = unicode(e['ID'])
     bibtex_type = e['ENTRYTYPE']
     # build the string
@@ -111,7 +111,7 @@ def book(e):
     # get the data
     author = util.author_or_editor(e, 5)
     year = e.get('year', 'no year')
-    title = e.get('title', '[no title]')
+    title = e.get('title', '=no title=')
     publisher = e.get('publisher', None)
     address = e.get('address', None)
     bibtex_key = unicode(e['ID'])
@@ -142,11 +142,11 @@ def incollection(e):
     # get the data
     author = util.author(e, 5)
     year = e.get('year', 'no year')
-    title = e.get('title', '[no title]')
+    title = e.get('title', '=no title=')
     publisher = e.get('publisher', None)
     address = e.get('address', None)
     editor = util.editor(e, 3)
-    booktitle = e.get('booktitle', '[no booktitle]')
+    booktitle = e.get('booktitle', '=no booktitle=')
     bibtex_key = unicode(e['ID'])
     bibtex_type = e['ENTRYTYPE']
     # build the string
@@ -156,16 +156,18 @@ def incollection(e):
     text += '(%s)' % year
     text += ' '
     text += '%s' % title
-    text += ' in '
-    if editor != '[no editor]':
-        text += editor
+    if editor != '=no editor=' and booktitle != '=no booktitle=':
+        text += ' in'
+        if editor != '=no editor=':
+            text += ' '
+            text += editor
+            text += ' '
+            if len(e['editor']) == 1:
+                text += '(Ed.)'
+            else:
+                text += '(Eds.)'
         text += ' '
-        if len(e['editor']) == 1:
-            text += '(Ed.)'
-        else:
-            text += '(Eds.)'
-    text += ' '
-    text += booktitle
+        text += booktitle
     if address or publisher:
         text += ', '
         if address:

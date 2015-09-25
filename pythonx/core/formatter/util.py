@@ -2,7 +2,7 @@ def author_or_editor(e, max_num):
     """
     return string flattened list of either authors or editors
     - authors returned in preference to editors
-    - if neither found, then '[no author]' is returned
+    - if neither found, then '=no author=' is returned
     :e: bibtex entry
     :max_num: maximum number of names to include, other marked by 'et al'
     :returns: string with authors or editors
@@ -13,13 +13,13 @@ def author_or_editor(e, max_num):
     elif 'editor' in e:
         text = flatten_list(e['editor'], max_num)
     else:
-        text = '[no author]'
+        text = '=no author='
     return text
 
 def author(e, max_num):
     """
     return string flattened list of authors
-    - if not found, then '[no author]' is returned
+    - if not found, then '=no author=' is returned
     :e: bibtex entry
     :max_num: maximum number of names to include, other marked by 'et al'
     :returns: string with authors
@@ -28,13 +28,13 @@ def author(e, max_num):
     if 'author' in e:
         text = flatten_list(e['author'], max_num)
     else:
-        text = '[no author]'
+        text = '=no author='
     return text
 
 def editor(e, max_num):
     """
     return string flattened list of editors
-    - if not found, then '[no author]' is returned
+    - if not found, then '=no author=' is returned
     :e: bibtex entry
     :max_num: maximum number of names to include, other marked by 'et al'
     :returns: string with editors
@@ -43,7 +43,7 @@ def editor(e, max_num):
     if 'editor' in e:
         text = flatten_list(e['editor'], max_num)
     else:
-        text = '[no editor]'
+        text = '=no editor='
     return text
 
 def flatten_list(names, max_num):
