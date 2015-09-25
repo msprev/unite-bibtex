@@ -1,4 +1,3 @@
-import os
 import bibtexparser
 import formatter.apalike
 from bibtexparser.bparser import BibTexParser
