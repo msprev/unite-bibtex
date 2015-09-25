@@ -146,6 +146,7 @@ def incollection(e):
     publisher = e.get('publisher', None)
     address = e.get('address', None)
     editor = util.editor(e, 3)
+    pages = e.get('pages', None)
     booktitle = e.get('booktitle', '=no booktitle=')
     bibtex_key = unicode(e['ID'])
     bibtex_type = e['ENTRYTYPE']
@@ -175,6 +176,9 @@ def incollection(e):
             text += ': '
         if publisher:
             text += publisher
+    if pages:
+        text += ', '
+        text += 'pp. ' + pages
     text += ' '
     text += '@' + bibtex_key
     text += ' '
