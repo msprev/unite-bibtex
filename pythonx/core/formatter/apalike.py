@@ -156,7 +156,7 @@ def incollection(e):
     text += '(%s)' % year
     text += ' '
     text += '%s' % title
-    if editor != '=no editor=' and booktitle != '=no booktitle=':
+    if editor != '=no editor=' or booktitle != '=no booktitle=':
         text += ' in'
         if editor != '=no editor=':
             text += ' '
