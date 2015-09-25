@@ -33,8 +33,8 @@ Parsing BibTeX databases is computationally intensive, so the source caches the 
 1.  Install [bibtexparser][]: `pip install bibtexparser`
 2.  Install [unite][]
 3.  Install this plugin (e.g. via [vim-plug][])
-4.  Set variable `let g:unite_bibtex_bib_files=["/path/to/your/bib/file1.bib"]`
-5.  Set variable `let g:unite_bibtex_cache_dir="/path/to/your/temp_dir"`
+4.  Set variable `let g:unite_bibtex_bib_files=['/path/to/your/bib/file1.bib']`
+5.  Set variable `let g:unite_bibtex_cache_dir='/path/to/your/temp_dir'`
 6.  `:Unite bibtex` in vim
 
 # Variables
@@ -46,6 +46,24 @@ The following variables can be set:
 - `b:unite_bibtex_prefix`, if not set assumes `'@'`
 - `b:unite_bibtex_postfix`, if not set assumes `''`
 - `b:unite_bibtex_separator`, if not set assumes `'; '`
+
+# bibwatch.py
+
+This plugin includes a separate Python executable, `bibwatch`.
+
+bibwatch runs in the background in the terminal and watches for changes to selected BibTeX files.
+    Once it detect a change, it updates their corresponding Unite cache.
+    This means your unite-bibtex source in vim will be populated with zero or minimal lag, even for very large BibTeX databases.
+
+bibwatch is in `unite-bibtex/pythonx/core`.
+    Go to this directory in the terminal to run `./bibwatch.py`
+    Pass to this command paths to any BibTeX files you want watched.
+    Pass your cache directory (as defined in `g:unite_bibtex_cache_dir`) as the value of `--cache`.
+    For example:
+
+    ./bibwatch.py /path/to/your/bib/file1.bib /path/to/your/bib/file2.bib --cache /path/to/your/temp_dir
+
+Press Control+C to terminate bibwatch.
 
 # Troubleshooting
 
@@ -63,8 +81,9 @@ pybtex-convert /path/to/your.bib out.bib
 # Release notes
 
 -   1.0 (25 September 2015):
+    - new: implement bibwatch, separate executable
     - new: implement persistent cache
-    - new: support multiple BibTex files
+    - new: support multiple BibTeX files
     - new: support buffer local and global settings
     - new: configuration variables for prefix, postfix, and separator for citations
     - fix: refactor code base
