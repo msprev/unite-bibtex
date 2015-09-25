@@ -143,7 +143,7 @@ def incollection(e):
     author = util.author(e, 5)
     year = e.get('year', 'no year')
     title = e.get('title', '[no title]')
-    publisher = e.get('publisher', '[no publisher]')
+    publisher = e.get('publisher', None)
     address = e.get('address', None)
     editor = util.editor(e, 3)
     booktitle = e.get('booktitle', '[no booktitle]')
