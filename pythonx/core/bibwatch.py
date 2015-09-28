@@ -79,9 +79,9 @@ def update(c):
     c.update(bibtex.parse)
     c.write()
     elapsed_time = time.time() - start_time
-    time_report = 'time taken: %s (%f seconds)' % (str(datetime.timedelta(seconds=elapsed_time)), elapsed_time)
+    time_report = 'time taken: %f seconds' % elapsed_time
     print('    written "%s"' % c.cache_path)
-    print('-- done (%s)' % time_report)
+    print('    done (%s)' % time_report)
 
 def parse_cli():
     p = argparse.ArgumentParser(
