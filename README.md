@@ -20,7 +20,7 @@ You can change this, on a per buffer basis, by setting the variables:
 
 Parsing BibTeX databases is computationally intensive, so the source caches the results.
     The cache is updated if the underlying BibTeX file has been changed.
-    The cache directory is set by `b:unite_bibtex_cache_dir`.
+    The cache directory is set by `g:unite_bibtex_cache_dir`.
     This variable must be set for the source to work.
 
 # Requirements
@@ -52,12 +52,12 @@ The following variables can be set:
 This plugin includes a separate Python executable, `bibwatch`.
 
 bibwatch runs in the background in the terminal and watches for changes to selected BibTeX files.
-    Once it detect a change, it updates their corresponding unite-bibtex cache.
-    This means your unite-bibtex source in vim will be populated with zero or minimal lag, even for very large BibTeX databases.
+    Once it detect a change, it updates the corresponding unite-bibtex cache.
+    This means your Unite bibtex source in vim will be populated with zero or minimal lag, even for very large BibTeX databases.
 
 bibwatch is in `unite-bibtex/pythonx/core` inside the unite-bibtex plugin.
     Go to this directory in the terminal to run `./bibwatch.py`
-    Pass command paths to any BibTeX files you want watched.
+    Pass paths to any BibTeX files you want watched.
     Pass your cache directory (as defined in `g:unite_bibtex_cache_dir`) as the value of `--cache`.
     For example:
 
