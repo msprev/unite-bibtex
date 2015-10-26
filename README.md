@@ -30,7 +30,7 @@ Parsing BibTeX databases is computationally intensive, so the source caches the 
 
 # Use
 
-1.  Install [bibtexparser][]: `pip install bibtexparser`
+1.  Install [bibtexparser][]: `pip2 install bibtexparser`
 2.  Install [unite][]
 3.  Install this plugin (e.g. via [vim-plug][])
 4.  Set variable `let g:unite_bibtex_bib_files=['/path/to/your/bib/file1.bib']`
@@ -70,7 +70,7 @@ Press Control+C to terminate bibwatch.
 You can correct your .bib file with [pybtex](http://pypi.python.org/pypi/pybtex):
 
 ```
-pip install pybtex
+pip2 install pybtex
 pybtex-convert /path/to/your.bib out.bib
 ```
 
