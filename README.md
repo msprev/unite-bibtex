@@ -41,8 +41,8 @@ Parsing BibTeX databases is computationally intensive, so the source caches the 
 
 The following variables can be set:
 
-- `g:unite_bibtex_bib_files`, `b:unite_bibtex_bib_files` -- at least 1 of these must be set
-- `g:unite_bibtex_cache_dir` -- must be set
+- `g:unite_bibtex_bib_files`, `b:unite_bibtex_bib_files` <-- at least 1 of these must be set
+- `g:unite_bibtex_cache_dir` <-- must be set
 - `b:unite_bibtex_prefix`, if not set assumes `'@'`
 - `b:unite_bibtex_postfix`, if not set assumes `''`
 - `b:unite_bibtex_separator`, if not set assumes `'; '`
