@@ -33,16 +33,16 @@ Parsing BibTeX databases is computationally intensive, so the source caches the 
 1.  Install [bibtexparser][]: `pip2 install bibtexparser`
 2.  Install [unite][]
 3.  Install this plugin (e.g. via [vim-plug][])
-4.  Set variable `let g:unite_bibtex_bib_files=['/path/to/your/bib/file1.bib']`
-5.  Set variable `let g:unite_bibtex_cache_dir='/path/to/your/temp_dir'`
+4.  Set variable: `let g:unite_bibtex_bib_files=['/path/to/your/bib/file1.bib']`
+5.  Set variable: `let g:unite_bibtex_cache_dir='/path/to/your/temp_dir'`
 6.  `:Unite bibtex` in vim
 
 # Variables
 
 The following variables can be set:
 
-- `g:unite_bibtex_bib_files`, `b:unite_bibtex_bib_files`, at least 1 of these must be set
-- `g:unite_bibtex_cache_dir`, must be set
+- `g:unite_bibtex_bib_files`, `b:unite_bibtex_bib_files` -- at least 1 of these must be set
+- `g:unite_bibtex_cache_dir` -- must be set
 - `b:unite_bibtex_prefix`, if not set assumes `'@'`
 - `b:unite_bibtex_postfix`, if not set assumes `''`
 - `b:unite_bibtex_separator`, if not set assumes `'; '`
