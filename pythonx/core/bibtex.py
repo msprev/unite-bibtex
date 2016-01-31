@@ -8,7 +8,7 @@ def parse(filename):
     parse bibtex file and return dictionary of key values as result
     uses a formatter to create Unite text for each entry
     :returns: dicionary
-        - key of dictionary item is BibTeX entry type
+        - key of dictionary item is BibTeX entry key
         - val of dictionary item is text for Unite to display for that entry
         all text in the dictionary, including keys, is unicode
     """
