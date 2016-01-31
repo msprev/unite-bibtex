@@ -57,7 +57,7 @@ def main():
                 try:
                     mtime_cur[b] = os.path.getmtime(b)
                 except OSError:
-                    time.sleep(SLEEP_TIME)
+                    time.sleep(5 * SLEEP_TIME)
                     continue
                 if mtime_cur[b] != mtime_last[b]:
                     update(c[b])
