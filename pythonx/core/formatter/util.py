@@ -1,15 +1,15 @@
 def get(e, key, default):
     """
     return e.get(key, default)
-    if standard bibtex version of key not found, use biblatex version
+    if biblatex version of key not found, use bibtex version
     """
-    BIBLATEX = {'date': 'year',
-                'journaltitle': 'journal',
-                'location': 'address'}
+    BIBLATEX = {'year': 'date',
+                'journal': 'journaltitle',
+                'address': 'location'}
     if key not in BIBLATEX:
         return e.get(key, default)
     else:
-        return e.get(key, e.get(BIBLATEX(key, default)))
+        return e.get(key, e.get(BIBLATEX[key], default))
 
 
 def author_or_editor(e, max_num):
