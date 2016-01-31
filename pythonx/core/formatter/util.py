@@ -1,7 +1,7 @@
 def get(e, key, default):
     """
     return e.get(key, default)
-    if biblatex version of key not found, use bibtex version
+    if bibtex version of key not found, use biblatex version
     """
     BIBLATEX = {'year': 'date',
                 'journal': 'journaltitle',
