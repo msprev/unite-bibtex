@@ -1,3 +1,17 @@
+def get(e, key, default):
+    """
+    return e.get(key, default)
+    if standard bibtex version of key not found, use biblatex version
+    """
+    BIBLATEX = {'date': 'year',
+                'journaltitle': 'journal',
+                'location': 'address'}
+    if key not in BIBLATEX:
+        return e.get(key, default)
+    else:
+        return e.get(key, e.get(BIBLATEX(key, default)))
+
+
 def author_or_editor(e, max_num):
     """
     return string flattened list of either authors or editors
@@ -7,14 +21,14 @@ def author_or_editor(e, max_num):
     :max_num: maximum number of names to include, other marked by 'et al'
     :returns: string with authors or editors
     """
-    text = str()
-    if 'author' in e:
-        text = flatten_list(e['author'], max_num)
-    elif 'editor' in e:
-        text = flatten_list(e['editor'], max_num)
+    authors = get(e, 'author', None)
+    editors = get(e, 'editor', None)
+    if authors:
+        return flatten_list(authors, max_num)
+    elif editors:
+        return flatten_list(editors, max_num)
     else:
-        text = '=no author='
-    return text
+        return '=no author='
 
 def author(e, max_num):
     """
@@ -24,12 +38,9 @@ def author(e, max_num):
     :max_num: maximum number of names to include, other marked by 'et al'
     :returns: string with authors
     """
-    text = str()
-    if 'author' in e:
-        text = flatten_list(e['author'], max_num)
-    else:
-        text = '=no author='
-    return text
+    authors = get(e, 'author', ['=no author='])
+    return flatten_list(authors, max_num)
+
 
 def editor(e, max_num):
     """
@@ -39,12 +50,8 @@ def editor(e, max_num):
     :max_num: maximum number of names to include, other marked by 'et al'
     :returns: string with editors
     """
-    text = str()
-    if 'editor' in e:
-        text = flatten_list(e['editor'], max_num)
-    else:
-        text = '=no editor='
-    return text
+    editors = get(e, 'editor', ['=no editor='])
+    return flatten_list(editors, max_num)
 
 def flatten_list(names, max_num):
     """
