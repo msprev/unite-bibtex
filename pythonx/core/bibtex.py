@@ -51,6 +51,7 @@ def parse(filename):
     with open(filename) as bibtex_file:
         parser = BibTexParser()
         parser.customization = customizations
+        parser.ignore_nonstandard_types=False
         entries = bibtexparser.load(bibtex_file, parser=parser).entries
     # 2. build the Unite text for each entry
     unite_keyvals = dict()
