@@ -3,6 +3,39 @@ import formatter.apalike
 from bibtexparser.bparser import BibTexParser
 from bibtexparser.customization import *
 
+# logging configuration for bibtexparser to stderr
+import logging
+import logging.config
+
+logger = logging.getLogger(__name__)
+
+logging.config.dictConfig({
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {
+            'format': '%(asctime)s [%(levelname)s] %(name)s %(funcName)s:%(lineno)d: %(message)s'
+        },
+    },
+    'handlers': {
+        'default': {
+            'level':'DEBUG',
+            'formatter': 'standard',
+            'class':'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['default'],
+            'level': 'WARNING',
+            'formatter': 'standard',
+            'propagate': True
+        }
+    }
+})
+# end logging configuration
+
+
 def parse(filename):
     """
     parse bibtex file and return dictionary of key values as result
