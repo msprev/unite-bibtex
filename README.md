@@ -36,6 +36,7 @@ Parsing BibTeX databases is computationally intensive, so the source caches the 
 4.  Set variable: `let g:unite_bibtex_bib_files=['/path/to/your/bib/file1.bib']`
 5.  Set variable: `let g:unite_bibtex_cache_dir='/path/to/your/temp_dir'`
 6.  `:Unite bibtex` in vim
+7.  `:messages` to see any errors or warnings from the BibTeX parser
 
 # Variables
 
