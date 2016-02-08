@@ -53,16 +53,17 @@ def main():
         print('(press Control+C to stop monitoring)')
         # monitor for changes
         while True:
+            time.sleep(SLEEP_TIME)
             for b in bib_files:
                 try:
                     mtime_cur[b] = os.path.getmtime(b)
                 except OSError:
-                    time.sleep(5 * SLEEP_TIME)
+                    time.sleep(3 * SLEEP_TIME)
                     continue
                 if mtime_cur[b] != mtime_last[b]:
+                    time.sleep(SLEEP_TIME)
                     update(c[b])
                     mtime_last[b] = mtime_cur[b]
-                    time.sleep(SLEEP_TIME)
     except KeyboardInterrupt:
         print('\nStopped')
     except cache.MissingSource:
