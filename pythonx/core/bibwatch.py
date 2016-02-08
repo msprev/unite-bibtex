@@ -41,7 +41,7 @@ def main():
     try:
         # check if cache is up to date
         for b in bib_files:
-            print('monitoring: "%s"' % b)
+            print('watching: "%s"' % b)
             c[b] = cache.Cache(b, cache_dir)
             mtime_last[b] = 0
             try:
@@ -50,7 +50,7 @@ def main():
             except (cache.NoCache, cache.OutdatedCache):
                 mtime_last[b] = 0
         print('cache directory: "%s"' % cache_dir)
-        print('(press Control+C to stop monitoring)')
+        print('(press Control+C to stop watching)')
         # monitor for changes
         while True:
             time.sleep(SLEEP_TIME)
@@ -75,13 +75,14 @@ def update(c):
     today = datetime.date.today().isoformat()
     now = datetime.datetime.now().time().isoformat()
     print(today + ' ' + now)
-    print('    updating cache for "%s"' % c.source_path)
+    print('    updated "%s"' % c.cache_path)
+    print('    cache for "%s"' % c.source_path)
     start_time = time.time()
     c.update(bibtex.parse)
     c.write()
     elapsed_time = time.time() - start_time
     time_report = 'time taken: %f seconds' % elapsed_time
-    print('    written "%s"' % c.cache_path)
+    print('    %d entries' % len(c.data))
     print('    done (%s)' % time_report)
 
 def parse_cli():
