@@ -1,5 +1,23 @@
 ![](http://d.pr/i/13kC8+ "screenshot")
 
+This plugin is no longer being maintained.  Unite is no longer maintained, so
+it makes sense to wind down this too.
+
+I can confirm that it still works under the last version of Unite
+with vim built with Python 2 (although not vim built with Python 3,
+Neovim, or Denite).
+
+For a variety of reasons (some hinted above), I have switched from Unite
+to [fzf](https://github.com/junegunn/fzf.vim).  I have rewritten the
+core of unite-bibtex as an fzf source that has no dependency on vim, and
+functions no matter which Python vim is built with, whether one is using
+Neovim, or another text editor.  It looks similar to the picture above,
+but it is somewhat prettier and much faster.
+
+If there is interest, I can make this fzf source for bibtex files
+public.  Given the relatively small following of this repository, I'm guessing this
+is a niche interest.  Raise an issue if you want it.
+
 # unite-bibtex
 
 A BibTeX source for unite.vim
@@ -27,6 +45,7 @@ Parsing BibTeX databases is computationally intensive, so the source caches the 
 
 - [unite][]
 - [bibtexparser][]: A BibTeX parser in Python
+- vim built with Python 2
 
 # Use
 
